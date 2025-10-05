@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSL - Vietnamese Sign Language App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:active {
+            transform: scale(0.95);
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .gradient-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .gradient-orange {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .gradient-pink {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        }
+        .gradient-purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+        .gradient-teal {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+        }
+        .gradient-red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        .gradient-indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-hands text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">VSL App</h1>
+                        <p class="text-xs opacity-90">Vietnamese Sign Language</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="hover:bg-white/20 p-2 rounded-full transition">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                    <button class="hover:bg-white/20 p-2 rounded-full transition">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6 pb-24">
+
+        <!-- Welcome Section -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-2">Xin chào! 👋</h2>
+            <p class="text-gray-600">Chọn tính năng bên dưới để bắt đầu giao tiếp với VSL</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <i class="fas fa-video text-2xl text-blue-500 mb-2"></i>
+                <p class="text-2xl font-bold text-gray-800">247</p>
+                <p class="text-xs text-gray-500">Video đã xử lý</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <i class="fas fa-book text-2xl text-green-500 mb-2"></i>
+                <p class="text-2xl font-bold text-gray-800">1,523</p>
+                <p class="text-xs text-gray-500">Từ vựng VSL</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-4 text-center">
+                <i class="fas fa-chart-line text-2xl text-purple-500 mb-2"></i>
+                <p class="text-2xl font-bold text-gray-800">85%</p>
+                <p class="text-xs text-gray-500">Độ chính xác</p>
+            </div>
+        </div>
+
+        <!-- Main Features Section -->
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-star text-yellow-500 mr-2"></i>
+            Tính năng chính
+        </h3>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+
+            <!-- Feature 1: Camera to Text -->
+            <div class="feature-card gradient-blue rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-camera text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Camera → Text</h4>
+                        <p class="text-xs opacity-90">Chuyển VSL sang văn bản</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2: Video Upload -->
+            <div class="feature-card gradient-green rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-video text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Video → Text</h4>
+                        <p class="text-xs opacity-90">Tải video VSL lên</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3: Audio to Text -->
+            <div class="feature-card gradient-orange rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-microphone text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Audio → Text</h4>
+                        <p class="text-xs opacity-90">Giọng nói sang văn bản</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 4: Text to VSL -->
+            <div class="feature-card gradient-pink rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-text-height text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Text → VSL</h4>
+                        <p class="text-xs opacity-90">Văn bản sang VSL</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Additional Features Section -->
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-th text-indigo-500 mr-2"></i>
+            Tính năng nâng cao
+        </h3>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+
+            <!-- Feature 5: 3D Avatar -->
+            <div class="feature-card gradient-purple rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-user-astronaut text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Nhân vật 3D</h4>
+                        <p class="text-xs opacity-90">Mô tả VSL bằng 3D</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 6: Gesture Recognition -->
+            <div class="feature-card gradient-teal rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-hand-paper text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Nhận diện cử chỉ</h4>
+                        <p class="text-xs opacity-90">Phát hiện gestures</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 7: Emotion Recognition -->
+            <div class="feature-card gradient-red rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-smile text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Nhận diện cảm xúc</h4>
+                        <p class="text-xs opacity-90">Phát hiện emotion</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 8: VSL Dictionary -->
+            <div class="feature-card gradient-indigo rounded-2xl shadow-lg p-6 text-white cursor-pointer">
+                <div class="flex flex-col items-center text-center h-full justify-between">
+                    <i class="fas fa-book-open text-5xl mb-3"></i>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">Từ điển VSL</h4>
+                        <p class="text-xs opacity-90">Tra cứu từ vựng</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tools Section -->
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-tools text-gray-600 mr-2"></i>
+            Công cụ & Quản lý
+        </h3>
+
+        <div class="grid grid-cols-1 gap-3 mb-6">
+
+            <!-- VSL Gloss Tool -->
+            <div class="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition flex items-center space-x-4">
+                <div class="bg-blue-100 p-4 rounded-xl">
+                    <i class="fas fa-edit text-3xl text-blue-600"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800">VSL Gloss Tool</h4>
+                    <p class="text-sm text-gray-500">Công cụ annotation VSL</p>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <!-- Data Augmentation -->
+            <div class="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition flex items-center space-x-4">
+                <div class="bg-green-100 p-4 rounded-xl">
+                    <i class="fas fa-database text-3xl text-green-600"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800">Data Augmentation</h4>
+                    <p class="text-sm text-gray-500">Sinh dữ liệu huấn luyện</p>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <!-- Model Management -->
+            <div class="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition flex items-center space-x-4">
+                <div class="bg-purple-100 p-4 rounded-xl">
+                    <i class="fas fa-brain text-3xl text-purple-600"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800">Quản lý Models</h4>
+                    <p class="text-sm text-gray-500">Model registry & training</p>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <!-- Custom Tools -->
+            <div class="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition flex items-center space-x-4">
+                <div class="bg-orange-100 p-4 rounded-xl">
+                    <i class="fas fa-cogs text-3xl text-orange-600"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800">Custom Tools</h4>
+                    <p class="text-sm text-gray-500">Công cụ tùy chỉnh & test</p>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+
+        </div>
+
+        <!-- Recent Activity -->
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-history text-gray-600 mr-2"></i>
+            Hoạt động gần đây
+        </h3>
+
+        <div class="space-y-3">
+            <div class="bg-white rounded-xl shadow-sm p-4 flex items-start space-x-3">
+                <div class="bg-blue-100 p-2 rounded-lg">
+                    <i class="fas fa-video text-blue-600"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-gray-800">Video "Chào buổi sáng" đã được xử lý</p>
+                    <p class="text-xs text-gray-500">5 phút trước</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-4 flex items-start space-x-3">
+                <div class="bg-green-100 p-2 rounded-lg">
+                    <i class="fas fa-microphone text-green-600"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-gray-800">Audio → Text: "Xin chào các bạn"</p>
+                    <p class="text-xs text-gray-500">15 phút trước</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-4 flex items-start space-x-3">
+                <div class="bg-purple-100 p-2 rounded-lg">
+                    <i class="fas fa-user-astronaut text-purple-600"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-gray-800">Đã tạo 3D avatar cho "Cảm ơn"</p>
+                    <p class="text-xs text-gray-500">1 giờ trước</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around py-3">
+
+                <button class="flex flex-col items-center space-y-1 text-indigo-600 transition">
+                    <i class="fas fa-home text-2xl"></i>
+                    <span class="text-xs font-medium">Trang chủ</span>
+                </button>
+
+                <button class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-camera text-2xl"></i>
+                    <span class="text-xs">Camera</span>
+                </button>
+
+                <button class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-book text-2xl"></i>
+                    <span class="text-xs">Từ điển</span>
+                </button>
+
+                <button class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-history text-2xl"></i>
+                    <span class="text-xs">Lịch sử</span>
+                </button>
+
+                <button class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-cog text-2xl"></i>
+                    <span class="text-xs">Cài đặt</span>
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Click Feedback Script -->
+    <script>
+        // Add click feedback to all feature cards
+        document.querySelectorAll('.feature-card, .bg-white.rounded-xl.shadow-md').forEach(card => {
+            card.addEventListener('click', function() {
+                // Show a simple alert (in real app, this would navigate to the feature)
+                const title = this.querySelector('h4')?.textContent || 'Feature';
+                console.log('Clicked:', title);
+
+                // Visual feedback
+                this.style.opacity = '0.7';
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                }, 150);
+            });
+        });
+
+        // Bottom navigation active state
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('nav button').forEach(btn => {
+                    btn.classList.remove('text-indigo-600');
+                    btn.classList.add('text-gray-400');
+                });
+
+                // Add active class to clicked button
+                this.classList.remove('text-gray-400');
+                this.classList.add('text-indigo-600');
+            });
+        });
+    </script>
+
+</body>
+</html>

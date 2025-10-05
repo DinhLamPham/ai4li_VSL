@@ -1,0 +1,52 @@
+# Backend
+backend/__pycache__
+backend/**/__pycache__
+backend/.pytest_cache
+backend/**/.pytest_cache
+backend/*.pyc
+backend/**/*.pyc
+backend/.env
+backend/venv
+backend/env
+
+# Frontend
+frontend/node_modules
+frontend/dist
+frontend/.vite
+
+# Data
+data/raw/*
+data/processed/*
+data/augmented/*
+
+# Models
+models/**/*.h5
+models/**/*.pt
+models/**/*.pb
+
+# Database
+database/*.db
+database/*.db-journal
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs
+docs/**
+*.md
+
+# Temp
+temp/**
+.temp
+*.tmp

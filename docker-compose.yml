@@ -1,0 +1,51 @@
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vsl_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+      - ./database:/app/database
+      - ./backend/models:/app/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=True
+      - DATABASE_URL=sqlite:///./database/vsl_app.db
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - vsl_network
+    restart: unless-stopped
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vsl_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: npm run dev -- --host 0.0.0.0
+    networks:
+      - vsl_network
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  vsl_network:
+    driver: bridge
+
+volumes:
+  data_volume:
+  models_volume:
+  database_volume:

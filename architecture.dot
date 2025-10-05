@@ -1,0 +1,206 @@
+digraph VSL_System_Architecture {
+    rankdir=TB;
+    node [shape=box, style=rounded];
+
+    // Styling
+    graph [fontname="Arial", fontsize=12, splines=ortho];
+    node [fontname="Arial", fontsize=11];
+    edge [fontname="Arial", fontsize=9];
+
+    // Mobile Frontend Layer
+    subgraph cluster_frontend {
+        label="Frontend Layer (React Mobile)";
+        style=filled;
+        color=lightblue;
+
+        UI [label="Mobile UI\n(React + Material-UI)", shape=component, fillcolor=lightyellow, style=filled];
+
+        subgraph cluster_ui_components {
+            label="UI Components";
+            style=filled;
+            color=lightcyan;
+
+            CameraUI [label="Camera\nCapture"];
+            AudioUI [label="Audio\nRecorder"];
+            TextUI [label="Text\nInput"];
+            AvatarUI [label="3D Avatar\nPlayer\n(Three.js)"];
+            ToolsUI [label="Tools\nInterface"];
+        }
+
+        StateManagement [label="State Management\n(Redux/Zustand)", shape=cylinder, fillcolor=lightgreen, style=filled];
+        APIClient [label="API Client\n(Axios)", shape=hexagon];
+    }
+
+    // API Gateway
+    APIGateway [label="API Gateway\n(FastAPI Router)", shape=hexagon, fillcolor=orange, style=filled];
+
+    // Backend Core Layer
+    subgraph cluster_backend_core {
+        label="Backend Core Services";
+        style=filled;
+        color=lightgray;
+
+        ModelManager [label="Shared Model Manager\n(MediaPipe, NLP, Audio)", shape=cylinder, fillcolor=yellow, style=filled];
+        TrainedModelRegistry [label="Trained Model Registry\n(MLflow)", shape=cylinder, fillcolor=yellow, style=filled];
+        DBManager [label="Database Manager\n(SQLAlchemy + SQLite)", shape=cylinder, fillcolor=lightcoral, style=filled];
+    }
+
+    // Module Layer - 4 Groups
+    subgraph cluster_group1 {
+        label="Group 1: VSL Recognition Module";
+        style=filled;
+        color=lightpink;
+
+        VSLRecognition [label="VSL Recognition\nService", fillcolor=pink, style=filled];
+        GestureRecognition [label="Gesture\nRecognition", fillcolor=pink, style=filled];
+        EmotionRecognition [label="Emotion\nRecognition", fillcolor=pink, style=filled];
+        VideoProcessing [label="Video/Image\nProcessing\n(OpenCV)", fillcolor=pink, style=filled];
+    }
+
+    subgraph cluster_group2 {
+        label="Group 2: Speech Processing Module";
+        style=filled;
+        color=lightgreen;
+
+        STT [label="Speech-to-Text\n(Whisper/Wav2Vec)", fillcolor=palegreen, style=filled];
+        TTS [label="Text-to-Speech\n(Coqui TTS)", fillcolor=palegreen, style=filled];
+        AudioPreprocessing [label="Audio\nPreprocessing\n(Librosa)", fillcolor=palegreen, style=filled];
+    }
+
+    subgraph cluster_group3 {
+        label="Group 3: Text to VSL & 3D Module";
+        style=filled;
+        color=lightyellow;
+
+        TextToVSL [label="Text → VSL\nTranslation", fillcolor=khaki, style=filled];
+        Avatar3D [label="3D Avatar\nGeneration\n(Blender)", fillcolor=khaki, style=filled];
+        GlossTool [label="VSL Gloss\nAnnotation Tool", fillcolor=khaki, style=filled];
+        NLPProcessor [label="Vietnamese NLP\n(VnCoreNLP)", fillcolor=khaki, style=filled];
+    }
+
+    subgraph cluster_group4 {
+        label="Group 4: Data & Tools Module";
+        style=filled;
+        color=lavender;
+
+        DataAugmentation [label="Data Augmentation\nPipeline", fillcolor=plum, style=filled];
+        CustomTools [label="Custom Testing\nTools", fillcolor=plum, style=filled];
+        ModelTraining [label="Model Training\n& Management", fillcolor=plum, style=filled];
+    }
+
+    // Data & Storage Layer
+    subgraph cluster_storage {
+        label="Data & Storage Layer";
+        style=filled;
+        color=lightsteelblue;
+
+        SQLiteDB [label="SQLite Database\n- Users\n- VSL Vocabulary\n- Sessions\n- Model Registry\n- Training Data", shape=cylinder, fillcolor=steelblue, style=filled];
+        ModelStorage [label="Model Storage\n(Trained Models)", shape=folder, fillcolor=steelblue, style=filled];
+        DataStorage [label="Data Storage\n- Videos\n- Images\n- Audio\n- 3D Models", shape=folder, fillcolor=steelblue, style=filled];
+    }
+
+    // External Services
+    subgraph cluster_external {
+        label="External Services & Libraries";
+        style=dashed;
+        color=gray;
+
+        MediaPipe [label="Google MediaPipe\n(Pose/Hand/Face)", shape=ellipse, fillcolor=lightcyan, style=filled];
+        PretrainedModels [label="Pretrained Models\n(Whisper, VITS, etc.)", shape=ellipse, fillcolor=lightcyan, style=filled];
+    }
+
+    // Frontend to API Gateway
+    UI -> StateManagement;
+    StateManagement -> APIClient;
+    CameraUI -> APIClient;
+    AudioUI -> APIClient;
+    TextUI -> APIClient;
+    AvatarUI -> APIClient;
+    ToolsUI -> APIClient;
+
+    APIClient -> APIGateway [label="HTTP/REST\nWebSocket"];
+
+    // API Gateway to Modules
+    APIGateway -> VSLRecognition [label="/api/v1/vsl/*"];
+    APIGateway -> STT [label="/api/v1/speech/*"];
+    APIGateway -> TextToVSL [label="/api/v1/vsl/text-to-vsl"];
+    APIGateway -> DataAugmentation [label="/api/v1/tools/*"];
+
+    // Group 1 Internal
+    VSLRecognition -> GestureRecognition;
+    VSLRecognition -> EmotionRecognition;
+    VSLRecognition -> VideoProcessing;
+
+    // Group 2 Internal
+    STT -> AudioPreprocessing;
+    TTS -> AudioPreprocessing;
+
+    // Group 3 Internal
+    TextToVSL -> NLPProcessor;
+    TextToVSL -> Avatar3D;
+    TextToVSL -> GlossTool;
+
+    // Group 4 Internal
+    DataAugmentation -> ModelTraining;
+    CustomTools -> ModelTraining;
+
+    // Core Services Connections
+    VSLRecognition -> ModelManager [label="Load MediaPipe"];
+    GestureRecognition -> ModelManager;
+    VideoProcessing -> ModelManager;
+
+    STT -> ModelManager [label="Load Whisper"];
+    TTS -> ModelManager [label="Load TTS"];
+    NLPProcessor -> ModelManager [label="Load NLP"];
+
+    VSLRecognition -> TrainedModelRegistry [label="Get VSL Model"];
+    GestureRecognition -> TrainedModelRegistry [label="Get Gesture Model"];
+    EmotionRecognition -> TrainedModelRegistry [label="Get Emotion Model"];
+    ModelTraining -> TrainedModelRegistry [label="Register Model"];
+
+    // Database Connections
+    VSLRecognition -> DBManager [label="Query/Save"];
+    STT -> DBManager;
+    TextToVSL -> DBManager;
+    GlossTool -> DBManager [label="Save Annotations"];
+    DataAugmentation -> DBManager;
+
+    DBManager -> SQLiteDB;
+
+    // Storage Connections
+    VideoProcessing -> DataStorage [label="Read/Write Media"];
+    AudioPreprocessing -> DataStorage;
+    Avatar3D -> DataStorage [label="Load 3D Models"];
+    DataAugmentation -> DataStorage [label="Generate Data"];
+
+    TrainedModelRegistry -> ModelStorage [label="Store/Load Models"];
+    ModelTraining -> ModelStorage;
+
+    // External Services
+    ModelManager -> MediaPipe [label="Import"];
+    ModelManager -> PretrainedModels [label="Load"];
+
+    // Data Flow Examples (highlighted)
+    subgraph cluster_dataflow {
+        label="Example Data Flows";
+        style=dashed;
+        color=red;
+
+        Flow1 [label="1. Camera → VSL Recognition → Text/Audio", shape=note, fillcolor=mistyrose, style=filled];
+        Flow2 [label="2. Audio → STT → Text", shape=note, fillcolor=mistyrose, style=filled];
+        Flow3 [label="3. Text → VSL Translation → 3D Avatar", shape=note, fillcolor=mistyrose, style=filled];
+    }
+
+    // Legend
+    subgraph cluster_legend {
+        label="Legend";
+        style=filled;
+        color=white;
+
+        LegendFrontend [label="Frontend", fillcolor=lightyellow, style=filled];
+        LegendBackend [label="Backend Service", fillcolor=pink, style=filled];
+        LegendCore [label="Core Service", fillcolor=yellow, style=filled];
+        LegendStorage [label="Storage", shape=cylinder, fillcolor=steelblue, style=filled];
+        LegendExternal [label="External Service", shape=ellipse, fillcolor=lightcyan, style=filled];
+    }
+}
