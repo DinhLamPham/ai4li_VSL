@@ -68,9 +68,19 @@ export default function UserManagement() {
       const response = await axios.get(
         `${API_URL}/api/v1/users?include_disabled=${includeDisabled}`
       );
-      setUsers(response.data.data.users);
+
+      // Check if response has expected structure
+      if (response.data && response.data.data && response.data.data.users) {
+        setUsers(response.data.data.users);
+      } else {
+        console.error('Unexpected response structure:', response.data);
+        setUsers([]);
+        setError('Unexpected response format from server');
+      }
     } catch (err) {
-      setError('Failed to fetch users: ' + err.message);
+      console.error('Failed to fetch users:', err);
+      setError('Failed to fetch users: ' + (err.response?.data?.message || err.message));
+      setUsers([]);
     } finally {
       setLoading(false);
     }

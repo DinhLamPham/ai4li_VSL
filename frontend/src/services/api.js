@@ -101,6 +101,27 @@ export const vslRecognitionAPI = {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },
+
+  /**
+   * Extract hand keypoints from video file
+   * @param {File} videoFile - Video file
+   * @param {Object} options - Processing options
+   * @param {number} options.sample_rate - Process 1 frame every N frames
+   * @param {number} options.max_frames - Maximum frames to process
+   * @returns {Promise}
+   */
+  handTrackingVideo: async (videoFile, options = {}) => {
+    const formData = new FormData()
+    formData.append('file', videoFile)
+
+    return apiClient.post('/vsl/hand-tracking/video', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      params: {
+        sample_rate: options.sample_rate || 5,
+        max_frames: options.max_frames || null
+      }
+    })
+  },
 }
 
 // Speech Processing API

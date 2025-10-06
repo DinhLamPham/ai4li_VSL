@@ -79,20 +79,7 @@ This will:
 
 ---
 
-### **Step 5: Start Backend Container**
-
-**Option A: Start Backend Only**
-```bash
-docker-compose up backend
-```
-
-**Option B: Start Backend in Background (Detached Mode)**
-```bash
-docker-compose up -d backend
-```
-
-**Option C: Start All Services**
-```bash
+### **Step 5: Start Container**
 docker-compose up
 ```
 

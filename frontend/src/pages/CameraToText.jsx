@@ -26,6 +26,7 @@ export default function CameraToText() {
   const [processing, setProcessing] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [keypointsData, setKeypointsData] = useState('')
 
   const webcamRef = useRef(null)
   const fileInputRef = useRef(null)
@@ -47,16 +48,57 @@ export default function CameraToText() {
 
     setProcessing(true)
     setError(null)
+    setKeypointsData('Processing video...\n')
 
     try {
-      console.log('[CameraToText] Processing video:', videoFile.name)
-      const response = await vslRecognitionAPI.recognizeVideo(videoFile)
+      console.log('[CameraToText] Processing video for hand keypoints:', videoFile.name)
+      const response = await vslRecognitionAPI.handTrackingVideo(videoFile, {
+        sample_rate: 5,
+        max_frames: null // Process all frames
+      })
 
       setResult(response.data)
       console.log('[CameraToText] Result:', response.data)
+
+      // Format keypoints data for display
+      if (response.data.success) {
+        let displayText = `=== Video Processing Complete ===\n\n`
+        displayText += `Total Frames Processed: ${response.data.total_frames_processed}\n`
+        displayText += `Hands Detected in: ${response.data.hands_detected_frames} frames (${response.data.detection_rate}%)\n`
+        displayText += `Processing Time: ${response.data.processing_time}s\n\n`
+
+        displayText += `=== Summary ===\n`
+        displayText += `Left Hand Frames: ${response.data.summary.left_hand_frames}\n`
+        displayText += `Right Hand Frames: ${response.data.summary.right_hand_frames}\n`
+        displayText += `Both Hands Frames: ${response.data.summary.both_hands_frames}\n`
+        displayText += `Average Hands per Frame: ${response.data.summary.avg_hands_per_frame}\n`
+        displayText += `Video FPS: ${response.data.summary.video_fps}\n`
+        displayText += `Video Duration: ${response.data.summary.video_duration_seconds}s\n\n`
+
+        displayText += `=== Sample Frames (showing ${response.data.sample_frames.length}) ===\n\n`
+
+        response.data.sample_frames.forEach((frame, idx) => {
+          displayText += `Frame #${frame.frame_number} (${frame.timestamp}s):\n`
+          displayText += `  Hands: ${frame.hands_detected}\n`
+
+          if (frame.hands_detected > 0) {
+            frame.hands.forEach(hand => {
+              displayText += `  - ${hand.hand_type} Hand (${hand.total_keypoints} keypoints)\n`
+              displayText += `    Sample keypoints:\n`
+              hand.keypoints.forEach(kp => {
+                displayText += `      Point ${kp.id}: x=${kp.x.toFixed(3)}, y=${kp.y.toFixed(3)}, z=${kp.z.toFixed(3)}\n`
+              })
+            })
+          }
+          displayText += '\n'
+        })
+
+        setKeypointsData(displayText)
+      }
     } catch (err) {
       console.error('[CameraToText] Error:', err)
       setError('Lỗi khi xử lý video: ' + (err.response?.data?.error || err.message))
+      setKeypointsData(`Error: ${err.message}\n`)
     } finally {
       setProcessing(false)
     }
@@ -177,44 +219,64 @@ export default function CameraToText() {
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Kết quả nhận diện
+              Hand Keypoint Detection Results
             </Typography>
             <Divider sx={{ mb: 2 }} />
 
             <Box sx={{ mb: 2 }}>
               <Chip
-                label={result.success ? 'Thành công' : 'Thất bại'}
+                label={result.success ? 'Success' : 'Failed'}
                 color={result.success ? 'success' : 'error'}
                 sx={{ mb: 1 }}
               />
             </Box>
 
-            <Typography variant="body1" paragraph>
-              <strong>Text nhận diện:</strong>
-            </Typography>
-            <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.100', mb: 2 }}>
-              <Typography variant="h6">
-                {result.detected_text || 'Không nhận diện được'}
+            {result.total_frames_processed !== undefined && (
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Frames Processed: {result.total_frames_processed}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Hands Detected: {result.hands_detected_frames} frames ({result.detection_rate}%)
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Processing Time: {result.processing_time}s
+                </Typography>
+              </Box>
+            )}
+
+            {/* Keypoints Display */}
+            <Paper
+              elevation={2}
+              sx={{
+                p: 2,
+                bgcolor: 'grey.50',
+                maxHeight: 400,
+                overflow: 'auto'
+              }}
+            >
+              <Typography variant="subtitle2" gutterBottom>
+                Hand Keypoints Data:
               </Typography>
+              <Box
+                component="pre"
+                sx={{
+                  fontFamily: 'monospace',
+                  fontSize: '0.75rem',
+                  whiteSpace: 'pre-wrap',
+                  wordWrap: 'break-word',
+                  m: 0,
+                  p: 1,
+                  bgcolor: 'white',
+                  borderRadius: 1,
+                  border: '1px solid',
+                  borderColor: 'grey.300',
+                  minHeight: 150
+                }}
+              >
+                {keypointsData || 'No data available'}
+              </Box>
             </Paper>
-
-            {result.confidence !== undefined && (
-              <Typography variant="body2" color="text.secondary">
-                Độ tin cậy: {(result.confidence * 100).toFixed(1)}%
-              </Typography>
-            )}
-
-            {result.processing_time !== undefined && (
-              <Typography variant="body2" color="text.secondary">
-                Thời gian xử lý: {result.processing_time.toFixed(2)}s
-              </Typography>
-            )}
-
-            {result.frame_count !== undefined && (
-              <Typography variant="body2" color="text.secondary">
-                Số frames đã xử lý: {result.frame_count}
-              </Typography>
-            )}
           </CardContent>
         </Card>
       )}
