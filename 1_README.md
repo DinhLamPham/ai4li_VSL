@@ -724,7 +724,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **FastAPI** - Modern web framework
 - **React** - UI framework
 - **Underthesea** - Vietnamese NLP
-- Tất cả sinh viên đã đóng góp vào dự án này
+
 
 ---
 
@@ -734,8 +734,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Node Version](https://img.shields.io/badge/node-18.x-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-
-**Current Phase**: Phase 2 - Core Module Development 🚧
 
 **Last Updated**: October 2025
 

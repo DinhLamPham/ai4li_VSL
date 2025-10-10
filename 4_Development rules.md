@@ -3261,7 +3261,7 @@ git merge main
 - [ ] Error handling đầy đủ
 - [ ] Input validation đầy đủ
 
-### Checklist Before PR / Kiểm tra trước khi tạo PR
+### Checklist Before Pull Request - PR / Kiểm tra trước khi tạo PR
 
 - [ ] Branch updated với main
 - [ ] Không có merge conflicts
@@ -3289,17 +3289,3 @@ git merge main
 - **JS Linter:** ESLint (https://eslint.org)
 
 ---
-
-## Contact / Liên hệ
-
-Nếu có thắc mắc về Development Rules, liên hệ:
-- Team Lead
-- Project Mentor
-- Create issue trên GitHub repository
-
----
-
-**END OF DOCUMENT**
-
-**Version:** 1.0.0
-**Last Updated:** 2025-10-05
